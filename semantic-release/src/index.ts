@@ -1,5 +1,5 @@
 import * as core from '@actions/core';
-import semanticRelease from 'semantic-release';
+import semanticRelease, { PluginSpec } from 'semantic-release';
 
 /**
  * The main function for the action.
@@ -9,8 +9,30 @@ export async function run(): Promise<void> {
     const isPrelease = core.getBooleanInput('is_prerelease');
     const prereleaseTag = core.getInput('prerelease_tag');
     const repositoryUrl = core.getInput('repository_url');
-    const ghPublish = core.getInput('gh_publish');
     const npmPublish = core.getInput('npm_publish');
+    const ghPublish = core.getInput('gh_publish');
+
+    const plugins: PluginSpec[] = [
+      '@semantic-release/commit-analyzer',
+      '@semantic-release/release-notes-generator',
+    ];
+
+    // If enabled, push plugin for publishing to NPM.
+    if (npmPublish) {
+      plugins.push('@semantic-release/npm');
+    }
+
+    // If enabled, push plugin for publishing as GitHub release.
+    if (ghPublish) {
+      plugins.push([
+        '@semantic-release/github',
+        {
+          successComment: false,
+          // Create a draft release for manual approval.
+          draftRelease: !isPrelease,
+        },
+      ]);
+    }
 
     const result = await semanticRelease({
       branches: [
@@ -21,19 +43,7 @@ export async function run(): Promise<void> {
         },
       ],
       repositoryUrl,
-      plugins: [
-        '@semantic-release/commit-analyzer',
-        '@semantic-release/release-notes-generator',
-        '@semantic-release/npm',
-        [
-          '@semantic-release/github',
-          {
-            successComment: false,
-            // Create a draft release for manual approval.
-            draftRelease: !isPrelease,
-          },
-        ],
-      ],
+      plugins,
     });
 
     if (!result) {
