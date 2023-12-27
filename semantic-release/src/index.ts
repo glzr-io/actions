@@ -61,11 +61,9 @@ export async function run(): Promise<void> {
         {
           name: 'main',
           ...(isPrelease ? { channel: prereleaseTag } : {}),
-          prerelease: isPrelease,
+          prerelease: isPrelease ? prereleaseTag : false,
         },
-        {
-          name: 'temp',
-        },
+        { name: '*' },
       ],
       repositoryUrl,
       plugins,

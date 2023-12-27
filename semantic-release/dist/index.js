@@ -18903,11 +18903,9 @@ async function run() {
         {
           name: "main",
           ...isPrelease ? { channel: prereleaseTag } : {},
-          prerelease: isPrelease
+          prerelease: isPrelease ? prereleaseTag : false
         },
-        {
-          name: "temp"
-        }
+        { name: "*" }
       ],
       repositoryUrl,
       plugins
