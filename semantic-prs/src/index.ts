@@ -44,8 +44,10 @@ export async function run(): Promise<void> {
 async function exitWithPrComment(
   pullRequest: WebhookPayload['pull_request'],
 ): Promise<void> {
-  const message = `\
-    **Title needs to be of format:**
+  const message = `
+    ## ⚠️ Problem with PR title formatting
+
+    Title needs to be of format:
     \`\`\`
     <change type>: <short summary>
       │                   │
@@ -54,17 +56,17 @@ async function exitWithPrComment(
       └─⫸ Valid change types: ${VALID_CHANGE_TYPES.join('|')}
     \`\`\`
 
-    eg. 'feat: add option to disable window transition animations'
+    eg. \`feat: add option to disable window transition animations\` ✅
 
-    **Which change type to choose?**
-    * chore: Changes that affect the build system or external dependencies
-    * ci: Changes to CI configuration files and scripts
-    * docs: Documentation only changes
-    * feat: A new feature
-    * fix: A bug fix
-    * perf: A code change that improves performance
-    * refactor: A code change that neither fixes a bug nor adds a feature
-    * test: Adding missing tests or correcting existing tests
+    ### Which change type to choose?
+    * **chore**: Changes that affect the build system or external dependencies
+    * **ci**: Changes to CI configuration files and scripts
+    * **docs**: Documentation only changes
+    * **feat**: A new feature
+    * **fix**: A bug fix
+    * **perf**: A code change that improves performance
+    * **refactor**: A code change that neither fixes a bug nor adds a feature
+    * **test**: Adding missing tests or correcting existing tests
   `.replace(/(\n)\s+/g, '$1');
 
   const ghToken = core.getInput('gh_token');
