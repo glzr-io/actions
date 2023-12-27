@@ -7,7 +7,7 @@
     "buildv": "ncc build src/index.ts --minify --source-map",
     "builda": "ncc build src/index.ts --external semantic-release --minify --source-map",
     "buildaa": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap --external:semantic-release --external:@actions/core",
-    "buildaaa": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --minify",
+    "buildaaa": "esbuild src/index.ts --bundle --cjs --platform=node --outfile=dist/index.js --minify",
     "buildes": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --minify --sourcemap"
   },
   "dependencies": {
