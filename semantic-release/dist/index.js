@@ -6,8 +6,10 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.run = void 0;
 const node_child_process_1 = require("node:child_process");
 const node_path_1 = __importDefault(require("node:path"));
+const node_util_1 = require("node:util");
 async function run() {
-    const { stdout, stderr } = await (0, node_child_process_1.exec)('npm --loglevel error ci --omit=dev', { cwd: node_path_1.default.resolve(__dirname) });
+    console.log('path.resolve(__dirname)', node_path_1.default.resolve(__dirname));
+    const { stdout, stderr } = await (0, node_util_1.promisify)(node_child_process_1.exec)('npm --loglevel error i --omit=dev', { cwd: node_path_1.default.resolve(__dirname) });
     const core = await import('@actions/core');
     try {
         const isPrelease = core.getBooleanInput('is_prerelease');
