@@ -1,3 +1,4 @@
+import * as core from '@actions/core';
 import { type PluginSpec } from 'semantic-release';
 import { exec } from 'node:child_process';
 import path from 'node:path';
@@ -7,16 +8,20 @@ import { promisify } from 'node:util';
  * The main function for the action.
  */
 export async function run(): Promise<void> {
-  if (process.env.CI) {
-    const { stdout, stderr } = await promisify(exec)(
-      'npm --loglevel error i --omit=dev',
-      { cwd: path.resolve(__dirname) },
-    );
-  }
-
-  const core = await import('@actions/core');
-
   try {
+    if (process.env.CI) {
+      const { stdout, stderr } = await promisify(exec)(
+        'npm --loglevel error i semantic-release@22.0.12',
+        { cwd: path.resolve(__dirname) },
+      );
+
+      core.debug(stdout);
+
+      if (stderr) {
+        throw new Error(stderr);
+      }
+    }
+
     const isPrelease = core.getBooleanInput('is_prerelease');
     const prereleaseTag = core.getInput('prerelease_tag');
     const repositoryUrl = core.getInput('repository_url');
