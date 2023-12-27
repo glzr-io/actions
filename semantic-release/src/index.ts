@@ -1,10 +1,13 @@
 import * as core from '@actions/core';
 import semanticRelease, { PluginSpec } from 'semantic-release';
 
+console.log('1hello!');
+
 /**
  * The main function for the action.
  */
 export async function run(): Promise<void> {
+  console.log('2hello!');
   try {
     const isPrelease = core.getBooleanInput('is_prerelease');
     const prereleaseTag = core.getInput('prerelease_tag');
