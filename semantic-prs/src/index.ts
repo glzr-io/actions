@@ -67,8 +67,8 @@ async function exitWithPrComment(
     * test: Adding missing tests or correcting existing tests
   `.replace(/(\n)\s+/g, '$1');
 
-  const token = core.getInput('gh-token');
-  const octokit = getOctokit(token);
+  const ghToken = core.getInput('gh_token');
+  const octokit = getOctokit(ghToken);
 
   await octokit.rest.issues.createComment({
     owner: context.repo.owner,

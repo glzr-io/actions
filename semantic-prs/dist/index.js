@@ -79,7 +79,7 @@ Support boolean input list: \`true | True | TRUE | false | False | FALSE\``)}w.g
     * perf: A code change that improves performance
     * refactor: A code change that neither fixes a bug nor adds a feature
     * test: Adding missing tests or correcting existing tests
-  `.replace(/(\n)\s+/g,"$1"),t=Gn.getInput("gh-token");throw await(0,Fr.getOctokit)(t).rest.issues.createComment({owner:Fr.context.repo.owner,repo:Fr.context.repo.repo,issue_number:A.number,body:e}),new Error(e)}Fd();0&&(module.exports={run});
+  `.replace(/(\n)\s+/g,"$1"),t=Gn.getInput("gh_token");throw await(0,Fr.getOctokit)(t).rest.issues.createComment({owner:Fr.context.repo.owner,repo:Fr.context.repo.repo,issue_number:A.number,body:e}),new Error(e)}Fd();0&&(module.exports={run});
 /*! Bundled license information:
 
 undici/lib/fetch/body.js:

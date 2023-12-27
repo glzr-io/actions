@@ -79,8 +79,10 @@ export async function run(): Promise<void> {
       { env: { GITHUB_TOKEN: ghToken, NPM_TOKEN: npmToken, CI: 'true' } },
     );
 
+    // Return early when a release isn't created (eg. in case no change types
+    // caused a version bump).
     if (!result) {
-      throw new Error('Failed to publish release.');
+      return;
     }
 
     const { lastRelease, commits, nextRelease, releases } = result;
