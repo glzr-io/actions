@@ -16,7 +16,7 @@ inputs:
     default: 'next'
 
   repository_url:
-    description: "URL to the Git repository (eg. 'git+https://github.com/glazerdesktop/actions.git')."
+    description: "URL to the Git repository (eg. 'git+https://github.com/glzr-io/actions.git')."
     required: true
 
   release_branch:

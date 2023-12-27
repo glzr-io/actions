@@ -3,13 +3,13 @@
   "description": "Shared workflows for GitHub Actions.",
   "version": "0.0.0",
   "license": "MIT",
-  "homepage": "https://github.com/glazerdesktop/actions",
+  "homepage": "https://github.com/glzr-io/actions",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/glazerdesktop/actions.git"
+    "url": "git+https://github.com/glzr-io/actions.git"
   },
   "bugs": {
-    "url": "https://github.com/glazerdesktop/actions/issues"
+    "url": "https://github.com/glzr-io/actions/issues"
   },
   "engines": {
     "node": ">=20"

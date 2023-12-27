@@ -1,4 +1,4 @@
-# Actions &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/glazerdesktop/actions/pulls) [![License](https://img.shields.io/github/license/glazerdesktop/actions)](https://github.com/glazerdesktop/actions/blob/master/LICENSE.md) [![Discord invite](https://img.shields.io/discord/1041662798196908052.svg?logo=discord&colorB=7289DA)](https://discord.gg/ud6z3qjRvM)
+# Actions &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/glzr-io/actions/pulls) [![License](https://img.shields.io/github/license/glzr-io/actions)](https://github.com/glzr-io/actions/blob/main/LICENSE.md) [![Discord invite](https://img.shields.io/discord/1041662798196908052.svg?logo=discord&colorB=7289DA)](https://discord.gg/ud6z3qjRvM)
 
 ## Semantic PRs
 
@@ -17,7 +17,7 @@ jobs:
   validate:
     runs-on: ubuntu-latest
     steps:
-      - uses: glazerdesktop/actions/semantic-prs@main
+      - uses: glzr-io/actions/semantic-prs@main
         with:
           gh_token: ${{ secrets.GITHUB_TOKEN }}
 ```
@@ -55,10 +55,10 @@ jobs:
           fetch-depth: 0
 
       - name: Semantic release
-        uses: glazerdesktop/actions/semantic-release@main
+        uses: glzr-io/actions/semantic-release@main
         with:
           is_prerelease: false
-          repository_url: 'github.com:glazerdesktop/glazewm-js.git'
+          repository_url: 'github.com:glzr-io/glazewm-js.git'
           gh_publish: true
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           npm_publish: true
