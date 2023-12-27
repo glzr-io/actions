@@ -18878,8 +18878,8 @@ async function run() {
     const isPrelease = core.getBooleanInput("is_prerelease");
     const prereleaseTag = core.getInput("prerelease_tag");
     const repositoryUrl = core.getInput("repository_url");
-    const npmPublish = core.getInput("npm_publish");
-    const ghPublish = core.getInput("gh_publish");
+    const npmPublish = core.getBooleanInput("npm_publish");
+    const ghPublish = core.getBooleanInput("gh_publish");
     const plugins = [
       "@semantic-release/commit-analyzer",
       "@semantic-release/release-notes-generator"
@@ -18897,7 +18897,8 @@ async function run() {
         }
       ]);
     }
-    const result = await (await import("semantic-release")).default({
+    const semanticRelease = (await import("semantic-release")).default;
+    const result = await semanticRelease({
       branches: [
         {
           name: "main",
