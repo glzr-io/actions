@@ -3,7 +3,14 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "npm run build -- --watch",
-    "build": "ncc build src/index.ts --external semantic-release --minify --source-map"
+    "buildv": "ncc build src/index.ts --minify --source-map",
+    "builda": "ncc build src/index.ts --external semantic-release --minify --source-map",
+    "buildaa": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap --external:semantic-release --external:@actions/core",
+    "buildaaa": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --minify",
+    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --minify --sourcemap"
+  },
+  "exports": {
+    ".": "./dist/index.js"
   },
   "dependencies": {
     "@actions/core": "1.10.1",
@@ -11,6 +18,7 @@
   },
   "devDependencies": {
     "@vercel/ncc": "0.38.1",
+    "esbuild": "0.19.10",
     "typescript": "5.3.3"
   }
 }
