@@ -1,0 +1,16 @@
+{
+  "name": "@glzr/semantic-release",
+  "version": "0.0.0",
+  "scripts": {
+    "dev": "npm run build -- --watch",
+    "build": "ncc build src/index.ts"
+  },
+  "dependencies": {
+    "@actions/core": "1.10.1",
+    "semantic-release": "22.0.12"
+  },
+  "devDependencies": {
+    "@vercel/ncc": "0.38.1",
+    "typescript": "5.3.3"
+  }
+}

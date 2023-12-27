@@ -1,0 +1,16 @@
+name: 'Semantic PRs'
+description: 'Verify that PR title follows semantic-release conventions.'
+author: 'glzr.io'
+
+branding:
+  icon: 'activity'
+  color: 'gray-dark'
+
+inputs:
+  scopes:
+    description: 'Comma separated list of valid scopes.'
+    default: ''
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

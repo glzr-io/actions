@@ -1,0 +1,32 @@
+name: 'Semantic Release'
+description: 'Verify that PR title follows semantic-release conventions.'
+author: 'glzr.io'
+
+branding:
+  icon: 'activity'
+  color: 'gray-dark'
+
+inputs:
+  is_prerelease:
+    description: 'Whether to publish as a prelease.'
+    default: false
+
+  prerelease_tag:
+    description: 'Suffix to add for preleases in GH releases and NPM dist tags.'
+    default: 'next'
+
+  repository_url:
+    description: "URL to the Git repository (eg. 'git+https://github.com/glazerdesktop/actions.git')"
+    required: true
+
+  gh_publish:
+    description: 'Whether to publish a GitHub release.'
+    default: false
+
+  npm_publish:
+    description: 'Whether to publish to NPM.'
+    default: false
+
+runs:
+  using: 'node20'
+  main: 'dist/index.js'

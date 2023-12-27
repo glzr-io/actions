@@ -1,0 +1,29 @@
+{
+  "name": "actions",
+  "description": "Shared workflows for GitHub Actions.",
+  "version": "0.0.0",
+  "license": "MIT",
+  "homepage": "https://github.com/glazerdesktop/actions",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/glazerdesktop/actions.git"
+  },
+  "bugs": {
+    "url": "https://github.com/glazerdesktop/actions/issues"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "semantic-prs",
+    "semantic-release"
+  ],
+  "scripts": {
+    "dev": "pnpm -r dev",
+    "build": "pnpm -r build",
+    "format": "prettier --write **/*.ts"
+  },
+  "devDependencies": {
+    "prettier": "3.1.1"
+  }
+}
