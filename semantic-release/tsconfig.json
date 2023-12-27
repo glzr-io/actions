@@ -1,23 +1,11 @@
 {
   "compilerOptions": {
-    "allowJs": true,
-    "baseUrl": "./",
-    "downlevelIteration": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
     "lib": ["ESNext"],
-    "importHelpers": true,
-    "moduleResolution": "Node",
-    "noEmit": true,
-    "noEmitOnError": true,
-    "noFallthroughCasesInSwitch": true,
-    "noImplicitReturns": true,
-    "paths": {
-      "@src/*": ["./src/*"]
-    },
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
     "removeComments": true,
     "resolveJsonModule": true,
-    "strict": true,
+    "outDir": "dist",
     "target": "ES2020"
   }
 }

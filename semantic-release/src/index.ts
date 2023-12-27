@@ -1,13 +1,20 @@
 import * as core from '@actions/core';
-import semanticRelease, { PluginSpec } from 'semantic-release';
+import { type PluginSpec } from 'semantic-release';
+import { exec } from 'node:child_process';
+import path from 'node:path';
 
-console.log('1hello!');
+// console.log('1hello!');
 
 /**
  * The main function for the action.
  */
 export async function run(): Promise<void> {
-  console.log('2hello!');
+  const { stdout, stderr } = await exec(
+    'npm --loglevel error ci --omit=dev',
+    { cwd: path.resolve(__dirname) },
+  );
+
+  // console.log('2hello!');
   try {
     const isPrelease = core.getBooleanInput('is_prerelease');
     const prereleaseTag = core.getInput('prerelease_tag');
@@ -37,7 +44,9 @@ export async function run(): Promise<void> {
       ]);
     }
 
-    const result = await semanticRelease({
+    const result = await (
+      await import('semantic-release')
+    ).default({
       branches: [
         {
           name: 'main',
