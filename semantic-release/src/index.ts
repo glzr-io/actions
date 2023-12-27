@@ -1,4 +1,3 @@
-import * as core from '@actions/core';
 import { type PluginSpec } from 'semantic-release';
 import { exec } from 'node:child_process';
 import path from 'node:path';
@@ -13,6 +12,8 @@ export async function run(): Promise<void> {
     'npm --loglevel error ci --omit=dev',
     { cwd: path.resolve(__dirname) },
   );
+
+  const core = await import('@actions/core');
 
   // console.log('2hello!');
   try {
