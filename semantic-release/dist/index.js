@@ -18902,7 +18902,7 @@ async function run() {
       branches: [
         {
           name: "main",
-          channel: isPrelease ? prereleaseTag : void 0,
+          ...isPrelease ? { channel: prereleaseTag } : {},
           prerelease: isPrelease
         }
       ],

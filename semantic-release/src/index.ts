@@ -60,7 +60,7 @@ export async function run(): Promise<void> {
       branches: [
         {
           name: 'main',
-          channel: isPrelease ? prereleaseTag : undefined,
+          ...(isPrelease ? { channel: prereleaseTag } : {}),
           prerelease: isPrelease,
         },
       ],
