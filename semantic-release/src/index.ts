@@ -76,7 +76,7 @@ export async function run(): Promise<void> {
         repositoryUrl,
         plugins,
       },
-      { env: { GITHUB_TOKEN: ghToken, NPM_TOKEN: npmToken } },
+      { env: { GITHUB_TOKEN: ghToken, NPM_TOKEN: npmToken, CI: 'true' } },
     );
 
     if (!result) {
