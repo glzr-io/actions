@@ -64,7 +64,7 @@ export async function run(): Promise<void> {
           prerelease: isPrelease,
         },
         {
-          name: 'main',
+          name: 'temp',
         },
       ],
       repositoryUrl,

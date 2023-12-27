@@ -18906,7 +18906,7 @@ async function run() {
           prerelease: isPrelease
         },
         {
-          name: "main"
+          name: "temp"
         }
       ],
       repositoryUrl,
