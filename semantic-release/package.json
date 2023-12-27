@@ -2,7 +2,7 @@
   "name": "@glzr/semantic-release",
   "version": "0.0.0",
   "scripts": {
-    "build": "esbuild src/index.ts --bundle --platform=node --outfile=dist/index.js --sourcemap --external:semantic-release",
+    "build": "esbuild src/index.ts --sourcemap --minify --bundle --platform=node --outfile=dist/index.js --external:semantic-release",
     "dev": "npm run build -- --watch"
   },
   "dependencies": {
@@ -11,13 +11,7 @@
   },
   "devDependencies": {
     "@types/node": "20.10.5",
-    "@rollup/plugin-commonjs": "25.0.7",
-    "@rollup/plugin-json": "6.1.0",
-    "@rollup/plugin-node-resolve": "15.2.3",
-    "@rollup/plugin-typescript": "11.1.5",
-    "@vercel/ncc": "0.38.1",
     "esbuild": "0.19.10",
-    "typescript": "5.3.3",
-    "tslib": "2.6.2"
+    "typescript": "5.3.3"
   }
 }
