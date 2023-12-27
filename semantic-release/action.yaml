@@ -28,16 +28,14 @@ inputs:
     default: false
 
   gh_token:
-    description: 'Token to use for publishing releases to GitHub.'
-    default: false
+    description: 'The GitHub token for authentication.'
 
   npm_publish:
     description: 'Whether to publish to NPM.'
     default: false
 
   npm_token:
-    description: 'Token to use for publishing to NPM.'
-    default: false
+    description: 'The NPM token for authentication.'
 
 runs:
   using: 'node20'

@@ -1,5 +1,5 @@
 name: 'Semantic PRs'
-description: 'Verify that PR title follows semantic-release conventions.'
+description: 'Check that PR title is valid.'
 author: 'glzr.io'
 
 branding:
@@ -7,9 +7,8 @@ branding:
   color: 'gray-dark'
 
 inputs:
-  scopes:
-    description: 'Comma separated list of valid scopes.'
-    default: ''
+  gh_token:
+    description: 'The GitHub token for authentication.'
 
 runs:
   using: 'node20'
