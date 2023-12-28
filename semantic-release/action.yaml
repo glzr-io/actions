@@ -1,42 +1,47 @@
-name: 'Semantic Release'
-description: 'Publish to GitHub releases and/or NPM via Semantic Release.'
-author: 'glzr.io'
+name: Semantic Release
+description: Publish to GitHub releases and/or NPM via Semantic Release.
+author: glzr.io
 
 branding:
-  icon: 'activity'
-  color: 'gray-dark'
+  icon: activity
+  color: gray-dark
 
 inputs:
   is_prerelease:
-    description: 'Whether to publish as a prelease.'
+    description: Whether to publish as a prelease.
     default: false
 
   prerelease_tag:
-    description: 'Suffix to add for preleases in GH releases and NPM dist tags.'
-    default: 'next'
+    description: Suffix to add for preleases in GH releases and NPM dist tags.
+    default: next
 
   repository_url:
-    description: "URL to the Git repository (eg. 'git+https://github.com/glzr-io/actions.git')."
+    description: URL to the Git repository (eg. 'git+https://github.com/glzr-io/actions.git').
     required: true
 
   release_branch:
-    description: 'Branch on which new releases are created from.'
+    description: Branch on which new releases are created from.
     default: 'main'
 
   gh_publish:
-    description: 'Whether to publish a GitHub release.'
+    description: Whether to publish a GitHub release.
     default: false
 
   gh_token:
-    description: 'The GitHub token for authentication.'
+    description: The GitHub token for authentication.
+
+  gh_assets:
+    description: |
+      JSON string of assets to attach to the GitHub release.
+      eg. [{ "path": "dist/asset.min.css", "label": "CSS" }]
 
   npm_publish:
-    description: 'Whether to publish to NPM.'
+    description: Whether to publish to NPM.
     default: false
 
   npm_token:
-    description: 'The NPM token for authentication.'
+    description: The NPM token for authentication.
 
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: node20
+  main: dist/index.js

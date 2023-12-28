@@ -58,7 +58,7 @@ jobs:
         uses: glzr-io/actions/semantic-release@main
         with:
           is_prerelease: false
-          repository_url: 'github.com:glzr-io/glazewm-js.git'
+          repository_url: github.com:glzr-io/glazewm-js.git
           gh_publish: true
           gh_token: ${{ secrets.GITHUB_TOKEN }}
           npm_publish: true

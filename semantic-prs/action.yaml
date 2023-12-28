@@ -1,15 +1,15 @@
-name: 'Semantic PRs'
-description: 'Check that PR title is valid.'
-author: 'glzr.io'
+name: Semantic PRs
+description: Check that PR title is valid.
+author: glzr.io
 
 branding:
-  icon: 'activity'
-  color: 'gray-dark'
+  icon: activity
+  color: gray-dark
 
 inputs:
   gh_token:
-    description: 'The GitHub token for authentication.'
+    description: The GitHub token for authentication.
 
 runs:
-  using: 'node20'
-  main: 'dist/index.js'
+  using: node20
+  main: dist/index.js

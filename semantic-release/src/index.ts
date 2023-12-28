@@ -30,6 +30,7 @@ export async function run(): Promise<void> {
     const releaseBranch = core.getInput('release_branch');
     const ghPublish = core.getBooleanInput('gh_publish');
     const ghToken = core.getInput('gh_token');
+    const ghAssets = core.getInput('gh_assets');
     const npmPublish = core.getBooleanInput('npm_publish');
     const npmToken = core.getInput('npm_token');
 
@@ -45,12 +46,15 @@ export async function run(): Promise<void> {
 
     // If enabled, push plugin for publishing as GitHub release.
     if (ghPublish) {
+      const assets = ghAssets ? JSON.parse(ghAssets) : [];
+
       plugins.push([
         '@semantic-release/github',
         {
-          successComment: false,
           // Create a draft release for manual approval.
           draftRelease: !isPrelease,
+          successComment: false,
+          assets,
         },
       ]);
     }
