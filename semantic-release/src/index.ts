@@ -75,7 +75,7 @@ export async function run(): Promise<void> {
           // and require a release branch to be added. We can bypass this by
           // adding a wildcard release branch, but it means the repository has
           // to have at least one branch other than `main`.
-          { name: '*|*/*' },
+          { name: '*' },
         ],
         repositoryUrl,
         plugins,
