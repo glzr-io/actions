@@ -31,6 +31,7 @@ export async function run(): Promise<void> {
     const ghPublish = core.getBooleanInput('gh-publish');
     const ghToken = core.getInput('gh-token');
     const ghAssets = core.getInput('gh-assets');
+    const ghDraftRelease = core.getInput('gh-draft-release');
     const npmPublish = core.getBooleanInput('npm-publish');
     const npmToken = core.getInput('npm-token');
 
@@ -51,8 +52,7 @@ export async function run(): Promise<void> {
       plugins.push([
         '@semantic-release/github',
         {
-          // Create a draft release for manual approval.
-          draftRelease: !isPrelease,
+          draftRelease: ghDraftRelease,
           successComment: false,
           assets,
         },

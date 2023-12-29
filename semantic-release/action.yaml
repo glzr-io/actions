@@ -27,6 +27,10 @@ inputs:
     description: Whether to publish a GitHub release.
     default: false
 
+  gh-draft-release:
+    description: Whether to publish the GitHub release as a draft.
+    default: true
+
   gh-token:
     description: GitHub token for authentication.
 
