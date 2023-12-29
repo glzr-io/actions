@@ -26,12 +26,11 @@ export async function run(): Promise<void> {
 
     const isPrelease = core.getBooleanInput('is-prerelease');
     const prereleaseTag = core.getInput('prerelease-tag');
-    const repositoryUrl = core.getInput('repository-url');
     const releaseBranch = core.getInput('release-branch');
     const ghPublish = core.getBooleanInput('gh-publish');
     const ghToken = core.getInput('gh-token');
     const ghAssets = core.getInput('gh-assets');
-    const ghDraftRelease = core.getInput('gh-draft-release');
+    const ghDraftRelease = core.getBooleanInput('gh-draft-release');
     const npmPublish = core.getBooleanInput('npm-publish');
     const npmToken = core.getInput('npm-token');
 
@@ -77,7 +76,6 @@ export async function run(): Promise<void> {
           // to have at least one branch other than `main`.
           { name: '*' },
         ],
-        repositoryUrl,
         plugins,
       },
       { env: { GITHUB_TOKEN: ghToken, NPM_TOKEN: npmToken, CI: 'true' } },

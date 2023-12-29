@@ -15,13 +15,9 @@ inputs:
     description: Suffix to add for preleases in GH releases and NPM dist tags.
     default: next
 
-  repository-url:
-    description: URL to the Git repository (eg. 'git+https://github.com/glzr-io/actions.git').
-    required: true
-
   release-branch:
     description: Branch on which new releases are created from.
-    default: 'main'
+    default: main
 
   gh-publish:
     description: Whether to publish a GitHub release.
