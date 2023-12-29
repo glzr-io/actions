@@ -4,7 +4,6 @@ import { WebhookPayload } from '@actions/github/lib/interfaces';
 
 const VALID_CHANGE_TYPES = [
   'build',
-  'chore',
   'ci',
   'docs',
   'feat',
@@ -44,33 +43,17 @@ export async function run(): Promise<void> {
 async function exitWithPrComment(
   pullRequest: WebhookPayload['pull_request'],
 ): Promise<void> {
-  const message = `
-    ## ⚠️ Problem with PR title formatting
-
-    Title needs to be of format:
-    \`\`\`
-    <change type>: <short summary>
-      │                   │
-      │                   └─⫸ Summary in present tense. Not capitalized. No period at the end.
-      │
-      └─⫸ Valid change types: ${VALID_CHANGE_TYPES.join('|')}
-    \`\`\`
-
-    eg. \`feat: add option to disable window transition animations\` ✅
-
-    ### Which change type to choose?
-    * **chore**: Changes that affect the build system or external dependencies
-    * **ci**: Changes to CI configuration files and scripts
-    * **docs**: Documentation only changes
-    * **feat**: A new feature
-    * **fix**: A bug fix
-    * **perf**: A code change that improves performance
-    * **refactor**: A code change that neither fixes a bug nor adds a feature
-    * **test**: Adding missing tests or correcting existing tests
-  `.replace(/(\n)\s+/g, '$1');
-
   const ghToken = core.getInput('gh_token');
+  const allowedScopes = JSON.parse(core.getInput('allowed_scopes'));
+  const exampleTitle = core.getInput('example_title');
+  const exampleTitleWithScope = core.getInput('example_title_with_scope');
   const octokit = getOctokit(ghToken);
+
+  const message = getErrorMessage(
+    allowedScopes,
+    exampleTitle,
+    exampleTitleWithScope,
+  );
 
   await octokit.rest.issues.createComment({
     owner: context.repo.owner,
@@ -80,6 +63,68 @@ async function exitWithPrComment(
   });
 
   throw new Error(message);
+}
+
+function getErrorMessage(
+  allowedScopes: string[],
+  exampleTitle: string,
+  exampleTitleWithScope: string,
+): string {
+  let message = `
+    ## ⚠️ Problem with PR title formatting
+
+    Title needs to be of format:
+    \`\`\`
+    `;
+
+  if (allowedScopes.length) {
+    const scopes = allowedScopes.join('|');
+    message += `
+      <change type>(<scope>): <short summary>
+        │             │         │
+        │             │         └─⫸ Summary in present tense. Not capitalized. No period at the end.
+        │             │
+        │             └─⫸ Affected scope (optional to include): ${scopes}
+        │
+        └─⫸ Valid change types: ${VALID_CHANGE_TYPES.join('|')}
+      `;
+  } else {
+    message += `
+      <change type>: <short summary>
+        │                   │
+        │                   └─⫸ Summary in present tense. Not capitalized. No period at the end.
+        │
+        └─⫸ Valid change types: ${VALID_CHANGE_TYPES.join('|')}
+      `;
+  }
+
+  message += `
+    \`\`\`
+
+    eg. \`${exampleTitle}\` ✅
+    `;
+
+  if (allowedScopes.length) {
+    message += `
+      eg. \`${exampleTitleWithScope}\` ✅
+      `;
+  }
+
+  message += `
+    ### Which change type to choose?
+    * **build**: Changes that affect the build system or external dependencies
+    * **ci**: Changes to CI configuration files and scripts
+    * **docs**: Documentation only changes
+    * **feat**: A new feature
+    * **fix**: A bug fix
+    * **perf**: A code change that improves performance
+    * **refactor**: A code change that neither fixes a bug nor adds a feature
+    * **revert**: Reverting a previous change
+    * **style**: A code formatting change
+    * **test**: Adding missing tests or correcting existing tests
+  `;
+
+  return message.replace(/(\n)\s+/g, '$1');
 }
 
 run();

@@ -28,7 +28,7 @@ inputs:
     default: false
 
   gh_token:
-    description: The GitHub token for authentication.
+    description: GitHub token for authentication.
 
   gh_assets:
     description: |
@@ -40,7 +40,7 @@ inputs:
     default: false
 
   npm_token:
-    description: The NPM token for authentication.
+    description: NPM token for authentication.
 
 runs:
   using: node20

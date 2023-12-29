@@ -8,7 +8,22 @@ branding:
 
 inputs:
   gh_token:
-    description: The GitHub token for authentication.
+    description: GitHub token for authentication.
+    required: true
+
+  allowed_scopes:
+    description: |
+      JSON string array of allowed scopes.
+      eg. ['docs', 'lander']
+    default: []
+
+  example_title:
+    description: Example of a good PR title.
+    default: 'feat: add option to disable window transition animations'
+
+  example_title_with_scope:
+    description: Example of a good PR title with a scope.
+    default: 'fix(utils): handle error when trimming string'
 
 runs:
   using: node20
