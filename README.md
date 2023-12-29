@@ -19,7 +19,7 @@ jobs:
     steps:
       - uses: glzr-io/actions/semantic-prs@main
         with:
-          gh_token: ${{ secrets.GITHUB_TOKEN }}
+          gh-token: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Semantic Release
@@ -57,10 +57,10 @@ jobs:
       - name: Semantic release
         uses: glzr-io/actions/semantic-release@main
         with:
-          is_prerelease: false
-          repository_url: github.com:glzr-io/glazewm-js.git
-          gh_publish: true
-          gh_token: ${{ secrets.GITHUB_TOKEN }}
-          npm_publish: true
-          npm_token: ${{ secrets.NPM_TOKEN }}
+          is-prerelease: false
+          repository-url: github.com:glzr-io/glazewm-js.git
+          gh-publish: true
+          gh-token: ${{ secrets.GITHUB-TOKEN }}
+          npm-publish: true
+          npm-token: ${{ secrets.NPM_TOKEN }}
 ```

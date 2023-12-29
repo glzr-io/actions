@@ -24,15 +24,15 @@ export async function run(): Promise<void> {
       }
     }
 
-    const isPrelease = core.getBooleanInput('is_prerelease');
-    const prereleaseTag = core.getInput('prerelease_tag');
-    const repositoryUrl = core.getInput('repository_url');
-    const releaseBranch = core.getInput('release_branch');
-    const ghPublish = core.getBooleanInput('gh_publish');
-    const ghToken = core.getInput('gh_token');
-    const ghAssets = core.getInput('gh_assets');
-    const npmPublish = core.getBooleanInput('npm_publish');
-    const npmToken = core.getInput('npm_token');
+    const isPrelease = core.getBooleanInput('is-prerelease');
+    const prereleaseTag = core.getInput('prerelease-tag');
+    const repositoryUrl = core.getInput('repository-url');
+    const releaseBranch = core.getInput('release-branch');
+    const ghPublish = core.getBooleanInput('gh-publish');
+    const ghToken = core.getInput('gh-token');
+    const ghAssets = core.getInput('gh-assets');
+    const npmPublish = core.getBooleanInput('npm-publish');
+    const npmToken = core.getInput('npm-token');
 
     const plugins: PluginSpec[] = [
       '@semantic-release/commit-analyzer',

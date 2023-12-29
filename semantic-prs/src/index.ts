@@ -1,6 +1,6 @@
 import * as core from '@actions/core';
 import { context, getOctokit } from '@actions/github';
-import { WebhookPayload } from '@actions/github/lib/interfaces';
+import { type WebhookPayload } from '@actions/github/lib/interfaces';
 
 const VALID_CHANGE_TYPES = [
   'build',
@@ -43,10 +43,10 @@ export async function run(): Promise<void> {
 async function exitWithPrComment(
   pullRequest: WebhookPayload['pull_request'],
 ): Promise<void> {
-  const ghToken = core.getInput('gh_token');
-  const allowedScopes = JSON.parse(core.getInput('allowed_scopes'));
-  const exampleTitle = core.getInput('example_title');
-  const exampleTitleWithScope = core.getInput('example_title_with_scope');
+  const ghToken = core.getInput('gh-token');
+  const allowedScopes = JSON.parse(core.getInput('allowed-scopes'));
+  const exampleTitle = core.getInput('example-title');
+  const exampleTitleWithScope = core.getInput('example-title-with-scope');
   const octokit = getOctokit(ghToken);
 
   const message = getErrorMessage(

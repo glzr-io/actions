@@ -7,39 +7,39 @@ branding:
   color: gray-dark
 
 inputs:
-  is_prerelease:
+  is-prerelease:
     description: Whether to publish as a prelease.
     default: false
 
-  prerelease_tag:
+  prerelease-tag:
     description: Suffix to add for preleases in GH releases and NPM dist tags.
     default: next
 
-  repository_url:
+  repository-url:
     description: URL to the Git repository (eg. 'git+https://github.com/glzr-io/actions.git').
     required: true
 
-  release_branch:
+  release-branch:
     description: Branch on which new releases are created from.
     default: 'main'
 
-  gh_publish:
+  gh-publish:
     description: Whether to publish a GitHub release.
     default: false
 
-  gh_token:
+  gh-token:
     description: GitHub token for authentication.
 
-  gh_assets:
+  gh-assets:
     description: |
       JSON string of assets to attach to the GitHub release.
       eg. [{ "path": "dist/asset.min.css", "label": "CSS" }]
 
-  npm_publish:
+  npm-publish:
     description: Whether to publish to NPM.
     default: false
 
-  npm_token:
+  npm-token:
     description: NPM token for authentication.
 
 runs:

@@ -7,21 +7,21 @@ branding:
   color: gray-dark
 
 inputs:
-  gh_token:
+  gh-token:
     description: GitHub token for authentication.
     required: true
 
-  allowed_scopes:
+  allowed-scopes:
     description: |
       JSON string array of allowed scopes.
       eg. ['docs', 'lander']
     default: []
 
-  example_title:
+  example-title:
     description: Example of a good PR title.
     default: 'feat: add option to disable window transition animations'
 
-  example_title_with_scope:
+  example-title-with-scope:
     description: Example of a good PR title with a scope.
     default: 'fix(utils): handle error when trimming string'
 
