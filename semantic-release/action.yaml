@@ -12,7 +12,8 @@ inputs:
     default: false
 
   prerelease-tag:
-    description: Suffix to add for preleases in GH releases and NPM dist tags.
+    description: |
+      Suffix to add for preleases in GH releases and NPM dist tags.
     default: next
 
   release-branch:
@@ -41,6 +42,10 @@ inputs:
 
   npm-token:
     description: NPM token for authentication.
+
+  npm-package-root:
+    description: |
+      Path to directory to publish (must contain a `package.json` file).
 
 runs:
   using: node20

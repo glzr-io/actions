@@ -33,6 +33,7 @@ export async function run(): Promise<void> {
     const ghDraftRelease = core.getBooleanInput('gh-draft-release');
     const npmPublish = core.getBooleanInput('npm-publish');
     const npmToken = core.getInput('npm-token');
+    const npmPackageRoot = core.getInput('npm-package-root');
 
     const plugins: PluginSpec[] = [
       '@semantic-release/commit-analyzer',
@@ -41,7 +42,12 @@ export async function run(): Promise<void> {
 
     // If enabled, push plugin for publishing to NPM.
     if (npmPublish) {
-      plugins.push('@semantic-release/npm');
+      plugins.push([
+        '@semantic-release/npm',
+        {
+          pkgRoot: npmPackageRoot,
+        },
+      ]);
     }
 
     // If enabled, push plugin for publishing as GitHub release.
