@@ -36,18 +36,19 @@ export async function run(): Promise<void> {
     const npmPackageRoot = core.getInput('npm-package-root');
 
     const plugins: PluginSpec[] = [
-      '@semantic-release/commit-analyzer',
-      '@semantic-release/release-notes-generator',
+      [
+        '@semantic-release/commit-analyzer',
+        { config: './conventional-changelog-preset' },
+      ],
+      [
+        '@semantic-release/release-notes-generator',
+        { config: './conventional-changelog-preset' },
+      ],
     ];
 
     // If enabled, push plugin for publishing to NPM.
     if (npmPublish) {
-      plugins.push([
-        '@semantic-release/npm',
-        {
-          pkgRoot: npmPackageRoot,
-        },
-      ]);
+      plugins.push(['@semantic-release/npm', { pkgRoot: npmPackageRoot }]);
     }
 
     // If enabled, push plugin for publishing as GitHub release.

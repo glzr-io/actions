@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "dev": "npm run build -- --watch",
-    "build": "esbuild src/index.ts --sourcemap --minify --bundle --platform=node --outfile=dist/index.js --external:semantic-release"
+    "build": "esbuild src/index.ts src/conventional-changelog-preset.ts --sourcemap --minify --bundle --platform=node --outdir=dist --external:semantic-release"
   },
   "dependencies": {
     "@actions/core": "1.10.1",
