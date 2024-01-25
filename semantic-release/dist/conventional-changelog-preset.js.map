@@ -1,7 +1,0 @@
-{
-  "version": 3,
-  "sources": ["../src/conventional-changelog-preset.ts"],
-  "sourcesContent": ["export default async function createPreset() {\n  console.log('!!! createPreset');\n\n  return {\n    parserOpts: {},\n    writerOpts: {},\n    recommendedBumpOpts: {},\n    conventionalChangelog: {},\n  };\n}\n"],
-  "mappings": "4ZAAA,IAAAA,EAAA,GAAAC,EAAAD,EAAA,aAAAE,IAAA,eAAAC,EAAAH,GAAA,eAAOE,GAAsC,CAC3C,eAAQ,IAAI,kBAAkB,EAEvB,CACL,WAAY,CAAC,EACb,WAAY,CAAC,EACb,oBAAqB,CAAC,EACtB,sBAAuB,CAAC,CAC1B,CACF",
-  "names": ["conventional_changelog_preset_exports", "__export", "createPreset", "__toCommonJS"]
-}

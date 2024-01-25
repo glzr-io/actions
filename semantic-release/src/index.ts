@@ -4,6 +4,8 @@ import { exec } from 'node:child_process';
 import path from 'node:path';
 import { promisify } from 'node:util';
 
+import { writerOpts } from './writer-opts';
+
 /**
  * The main function for the action.
  */
@@ -36,13 +38,13 @@ export async function run(): Promise<void> {
     const npmPackageRoot = core.getInput('npm-package-root');
 
     const plugins: PluginSpec[] = [
-      [
-        '@semantic-release/commit-analyzer',
-        { config: './conventional-changelog-preset' },
-      ],
+      '@semantic-release/commit-analyzer',
       [
         '@semantic-release/release-notes-generator',
-        { config: './conventional-changelog-preset' },
+        {
+          preset: 'angular',
+          writerOpts,
+        },
       ],
     ];
 

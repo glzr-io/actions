@@ -1,8 +1,8 @@
 {
   "compilerOptions": {
     "lib": ["ESNext"],
-    "module": "nodenext",
-    "moduleResolution": "nodenext",
+    "module": "esnext",
+    "moduleResolution": "bundler",
     "removeComments": true,
     "resolveJsonModule": true,
     "outDir": "dist",
