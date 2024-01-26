@@ -4,7 +4,7 @@ import { exec } from 'node:child_process';
 import path from 'node:path';
 import { promisify } from 'node:util';
 
-import { writerOpts } from './writer-opts';
+import { getWriterOpts } from './get-writer-opts';
 
 /**
  * The main function for the action.
@@ -33,17 +33,18 @@ export async function run(): Promise<void> {
     const ghToken = core.getInput('gh-token');
     const ghAssets = core.getInput('gh-assets');
     const ghDraftRelease = core.getBooleanInput('gh-draft-release');
+    const ghReleaseHeader = core.getInput('gh-release-header');
     const npmPublish = core.getBooleanInput('npm-publish');
     const npmToken = core.getInput('npm-token');
     const npmPackageRoot = core.getInput('npm-package-root');
 
     const plugins: PluginSpec[] = [
-      '@semantic-release/commit-analyzer',
+      ['@semantic-release/commit-analyzer', { preset: 'angular' }],
       [
         '@semantic-release/release-notes-generator',
         {
           preset: 'angular',
-          writerOpts,
+          writerOpts: getWriterOpts(ghReleaseHeader),
         },
       ],
     ];

@@ -28,6 +28,10 @@ inputs:
     description: Whether to publish the GitHub release as a draft.
     default: true
 
+  gh-release-header:
+    description: Header text to show at the top of the release.
+    default: ''
+
   gh-token:
     description: GitHub token for authentication.
 
