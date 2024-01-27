@@ -41,17 +41,9 @@ export function getWriterOpts(headerText: string): WriterOptions {
         return false;
       }
 
-      // Replace issues referenced in commit subject with a markdown link
-      // to the issue (eg. '#500' -> '[#500](https://github.com/...)').
-      const issueUrl = `${context.repoUrl}/issues/`;
-      const subjectWithUrls = commit.subject.replace(
-        /#([0-9]+)/g,
-        (_, issueNo) => `[#${issueNo}](${issueUrl}${issueNo})`,
-      );
-
       // Format commit subject.
       const subject = addPunctuationMark(
-        capitalize(subjectWithUrls.trim()),
+        capitalize(commit.subject.trim()),
       );
 
       // Format commit body.
