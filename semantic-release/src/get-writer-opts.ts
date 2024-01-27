@@ -10,7 +10,7 @@ import type { WriterOptions } from 'conventional-changelog-core';
  * 4. Bullet points for each paragraph in commit body.
  */
 const commitPartial = `
-*{{~#if scope}} **{{scope}}:**{{/if}} {{subject}}
+*{{#if scope}} **{{scope}}:**{{/if}} {{subject}}
 {{~#if author}} @{{author.name}}{{/if}}
 {{#if body}}{{body}}{{/if}}
 `;
@@ -39,8 +39,10 @@ const mainTemplate = `
 
 export function getWriterOpts(headerText: string): WriterOptions {
   return {
-    mainTemplate,
-    commitPartial,
+    // Remove start and end new-line character.
+    mainTemplate: mainTemplate.slice(1, -1),
+    // Remove start and end new-line character.
+    commitPartial: commitPartial.slice(1, -1),
     headerPartial: headerText,
     transform: ((commit, _context) => {
       // Discard if no commit type or subject is present.
