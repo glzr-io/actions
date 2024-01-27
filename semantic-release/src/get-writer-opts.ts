@@ -11,7 +11,7 @@ import type { WriterOptions } from 'conventional-changelog-core';
  */
 const commitPartial = `
 *{{#if scope}} **{{scope}}:**{{/if}} {{subject}}
-{{~#if author}} {{author.name}}{{/if}}
+{{~#if author}} @{{author.name}}{{/if}}
 {{#if body}}{{body}}{{/if}}
 `;
 
@@ -33,7 +33,7 @@ const mainTemplate = `
 
 {{/each}}
 {{> footer}}
-
+---
 {{thankYouMessage}}
 `;
 
@@ -42,9 +42,7 @@ export function getWriterOpts(headerText: string): WriterOptions {
     mainTemplate,
     commitPartial,
     headerPartial: headerText,
-    transform: ((commit, context) => {
-      console.log('!!! commit', JSON.stringify(commit));
-
+    transform: ((commit, _context) => {
       // Discard if no commit type or subject is present.
       if (!commit.type || !commit.subject) {
         return false;
@@ -61,6 +59,9 @@ export function getWriterOpts(headerText: string): WriterOptions {
         return false;
       }
 
+      // Format commit type.
+      const type = getTypeHeading(commit.type);
+
       // Format commit subject.
       const subject = addPunctuationMark(
         capitalize(commit.subject.trim()),
@@ -71,17 +72,12 @@ export function getWriterOpts(headerText: string): WriterOptions {
         .split(/\n[\s\n]*/)
         .map(paragraph => capitalize(paragraph.trim()))
         .filter(paragraph => !!paragraph)
-        .map(paragraph => `* ${addPunctuationMark(paragraph)}`)
+        .map(paragraph => `  * ${addPunctuationMark(paragraph)}`)
         .join('\n');
 
-      return {
-        ...commit,
-        type: getTypeHeading(commit.type),
-        subject,
-        body,
-      };
+      return { ...commit, type, subject, body };
     }) as WriterOptions['transform'],
-    // @ts-ignore - TS type from `conventional-changelog-core` is
+    // @ts-ignore - Return type from `conventional-changelog-core` is
     // completely incorrect.
     finalizeContext: (context, _options, commits, _keyCommit) => {
       const authors = commits.reduce((acc, commit) => {
