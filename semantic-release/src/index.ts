@@ -43,6 +43,8 @@ export async function run(): Promise<void> {
         '@semantic-release/commit-analyzer',
         {
           preset: 'angular',
+          // Merged with default release rules.
+          // Ref: https://github.com/semantic-release/commit-analyzer/blob/7e703114a64e6982bed93950b17b1c590eb8ffba/lib/default-release-rules.js
           releaseRules: [
             { type: 'chore', release: 'patch' },
             { type: 'build', release: 'patch' },

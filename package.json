@@ -1,29 +1,31 @@
 {
   "name": "actions",
-  "description": "Shared workflows for GitHub Actions.",
   "version": "0.0.0",
-  "license": "MIT",
+  "description": "Shared workflows for GitHub Actions.",
   "homepage": "https://github.com/glzr-io/actions",
+  "bugs": {
+    "url": "https://github.com/glzr-io/actions/issues"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/glzr-io/actions.git"
   },
-  "bugs": {
-    "url": "https://github.com/glzr-io/actions/issues"
-  },
-  "engines": {
-    "node": ">=20"
-  },
+  "license": "MIT",
   "workspaces": [
     "semantic-prs",
     "semantic-release"
   ],
   "scripts": {
-    "dev": "pnpm -r dev",
     "build": "pnpm -r build",
+    "dev": "pnpm -r dev",
     "format": "prettier --write **/*.ts"
   },
+  "prettier": "@glzr/style-guide/prettier",
   "devDependencies": {
+    "@glzr/style-guide": "1.0.0",
     "prettier": "3.1.1"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

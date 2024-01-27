@@ -1,11 +1,7 @@
 {
+  "extends": "@glzr/style-guide/tsconfig/nodejs-lib",
   "compilerOptions": {
-    "lib": ["ESNext"],
-    "module": "esnext",
-    "moduleResolution": "bundler",
-    "removeComments": true,
-    "resolveJsonModule": true,
     "outDir": "dist",
-    "target": "ES2020"
+    "removeComments": true,
   }
 }

@@ -42,7 +42,7 @@ export function getWriterOpts(headerText: string): WriterOptions {
     mainTemplate,
     commitPartial,
     headerPartial: headerText,
-    transform: ((commit, _context) => {
+    transform: (commit, _context) => {
       // Discard if no commit type or subject is present.
       if (!commit.type || !commit.subject) {
         return false;
@@ -60,27 +60,25 @@ export function getWriterOpts(headerText: string): WriterOptions {
       }
 
       // Format commit type.
-      const type = getTypeHeading(commit.type);
+      commit.type = getTypeHeading(commit.type);
 
       // Format commit subject.
-      const subject = addPunctuationMark(
+      commit.subject = addPunctuationMark(
         capitalize(commit.subject.trim()),
       );
 
       // Format commit body.
-      const body = (commit.body ?? '')
+      commit.body = (commit.body ?? '')
         .split(/\n[\s\n]*/)
         .map(paragraph => capitalize(paragraph.trim()))
         .filter(paragraph => !!paragraph)
         .map(paragraph => `  * ${addPunctuationMark(paragraph)}`)
         .join('\n');
 
-      return { ...commit, type, subject, body };
-    }) as WriterOptions['transform'],
-    // @ts-ignore - Return type from `conventional-changelog-core` is
-    // completely incorrect.
+      return commit;
+    },
     finalizeContext: (context, _options, commits, _keyCommit) => {
-      const authors = commits.reduce((acc, commit) => {
+      const authors = commits.reduce<string[]>((acc, commit) => {
         // TS type from `conventional-changelog-core` doesn't include
         // author field.
         const author = commit.raw.author as unknown as
@@ -97,12 +95,10 @@ export function getWriterOpts(headerText: string): WriterOptions {
           ? authors[0]
           : `${authors.slice(0, -1).join(', ')}, and ${authors.slice(-1)}`;
 
-      const thankYouMessage = `Big thanks to ${authorsText} for contributing to this release 💛`;
+      // Add thank you message to context.
+      context.thankYouMessage = `Big thanks to ${authorsText} for contributing to this release 💛`;
 
-      return {
-        ...context,
-        thankYouMessage,
-      };
+      return context;
     },
   };
 }
