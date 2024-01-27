@@ -39,7 +39,16 @@ export async function run(): Promise<void> {
     const npmPackageRoot = core.getInput('npm-package-root');
 
     const plugins: PluginSpec[] = [
-      ['@semantic-release/commit-analyzer', { preset: 'angular' }],
+      [
+        '@semantic-release/commit-analyzer',
+        {
+          preset: 'angular',
+          releaseRules: [
+            { type: 'chore', release: 'patch' },
+            { type: 'build', release: 'patch' },
+          ],
+        },
+      ],
       [
         '@semantic-release/release-notes-generator',
         {
