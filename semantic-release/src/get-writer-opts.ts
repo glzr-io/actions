@@ -1,4 +1,4 @@
-import type { WriterOptions, Options } from 'conventional-changelog-core';
+import type { WriterOptions } from 'conventional-changelog-core';
 
 /**
  * Handlebars partial used for each commit of the release notes.
@@ -6,26 +6,46 @@ import type { WriterOptions, Options } from 'conventional-changelog-core';
  * Commit partial format:
  * 1. Prefix with scope (if one exists).
  * 2. Commit subject (commit message without scope).
- * 3. Thank you to contributor.
+ * 3. Contributor username.
  * 4. Bullet points for each paragraph in commit body.
  */
 const commitPartial = `
 *{{#if scope}} **{{scope}}:**{{/if}} {{subject}}
+{{~#if author}} {{author.name}}{{/if}}
 {{#if body}}{{body}}{{/if}}
 `;
 
-// {{~#if}}
-//   Thanks {{}}
-// {{~/if}}
+/**
+ * Handlebars template for the whole release notes.
+ */
+const mainTemplate = `
+{{> header}}
+
+{{#each commitGroups}}
+
+{{#if title}}
+### {{title}}
+
+{{/if}}
+{{#each commits}}
+{{> commit root=@root}}
+{{/each}}
+
+{{/each}}
+{{> footer}}
+
+{{thankYouMessage}}
+`;
 
 export function getWriterOpts(headerText: string): WriterOptions {
   return {
-    headerPartial: headerText,
+    mainTemplate,
     commitPartial,
+    headerPartial: headerText,
     transform: ((commit, context) => {
       console.log('!!! commit', JSON.stringify(commit));
 
-      // Discard if no commit type is present.
+      // Discard if no commit type or subject is present.
       if (!commit.type || !commit.subject) {
         return false;
       }
@@ -61,6 +81,33 @@ export function getWriterOpts(headerText: string): WriterOptions {
         body,
       };
     }) as WriterOptions['transform'],
+    // @ts-ignore - TS type from `conventional-changelog-core` is
+    // completely incorrect.
+    finalizeContext: (context, _options, commits, _keyCommit) => {
+      const authors = commits.reduce((acc, commit) => {
+        // TS type from `conventional-changelog-core` doesn't include
+        // author field.
+        const author = commit.raw.author as unknown as
+          | { name: string }
+          | undefined;
+
+        return author?.name && !acc.includes(author.name)
+          ? [...acc, `@${author.name}`]
+          : acc;
+      }, []);
+
+      const authorsText =
+        authors.length === 1
+          ? authors[0]
+          : `${authors.slice(0, -1).join(', ')}, and ${authors.slice(-1)}`;
+
+      const thankYouMessage = `Big thanks to ${authorsText} for contributing to this release 💛`;
+
+      return {
+        ...context,
+        thankYouMessage,
+      };
+    },
   };
 }
 
