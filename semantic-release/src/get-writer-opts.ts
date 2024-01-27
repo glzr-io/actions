@@ -67,7 +67,7 @@ export function getWriterOpts(headerText: string): WriterOptions {
       );
 
       // Format commit body.
-      const body = commit.body
+      const body = (commit.body ?? '')
         .split(/\n[\s\n]*/)
         .map(paragraph => capitalize(paragraph.trim()))
         .filter(paragraph => !!paragraph)
