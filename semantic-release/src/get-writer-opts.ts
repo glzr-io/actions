@@ -10,7 +10,7 @@ import type { WriterOptions } from 'conventional-changelog-core';
  * 4. Bullet points for each paragraph in commit body.
  */
 const commitPartial = `
-*{{#if scope}} **{{scope}}:**{{/if}} {{subject}}
+*{{~#if scope}} **{{scope}}:**{{/if}} {{subject}}
 {{~#if author}} @{{author.name}}{{/if}}
 {{#if body}}{{body}}{{/if}}
 `;
@@ -87,7 +87,7 @@ export function getWriterOpts(headerText: string): WriterOptions {
           | { name: string }
           | undefined;
 
-        return author?.name && !acc.includes(author.name)
+        return author?.name && !acc.includes(`@${author.name}`)
           ? [...acc, `@${author.name}`]
           : acc;
       }, []);
