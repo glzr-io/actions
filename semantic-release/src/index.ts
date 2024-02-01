@@ -74,7 +74,7 @@ export async function run(): Promise<void> {
         '@semantic-release/github',
         {
           draftRelease: ghDraftRelease,
-          successComment: false,
+          failComment: false,
           assets,
         },
       ]);

@@ -6,12 +6,12 @@ import type { WriterOptions } from 'conventional-changelog-core';
  * Commit partial format:
  * 1. Prefix with scope (if one exists).
  * 2. Commit subject (commit message without scope).
- * 3. Contributor username.
+ * 3. Link to contributor.
  * 4. Bullet points for each paragraph in commit body.
  */
 const commitPartial = `\
 *{{#if scope}} **{{scope}}:**{{/if}} {{subject}}
-{{~#if author}} @{{author.name}}{{/if}}
+{{~#if authorLink}} {{authorLink}}{{/if}}
 {{#if body}}{{body}}{{/if}}\
 `;
 
@@ -37,13 +37,17 @@ const mainTemplate = `\
 {{thankYouMessage}}\
 `;
 
+interface CommitUser {
+  name: string;
+  email: string;
+}
+
 export function getWriterOpts(headerText: string): WriterOptions {
   return {
     mainTemplate,
     commitPartial,
     headerPartial: headerText,
-    transform: (commit, _context) => {
-      console.log('>>', JSON.stringify(commit));
+    transform: (commit, context) => {
       // Discard if no commit type or subject is present.
       if (!commit.type || !commit.subject) {
         return false;
@@ -65,7 +69,9 @@ export function getWriterOpts(headerText: string): WriterOptions {
 
       // Format commit subject.
       commit.subject = addPunctuationMark(
-        capitalize(commit.subject.trim()),
+        capitalize(
+          addMarkdownLinks(commit.subject, context.repoUrl!).trim(),
+        ),
       );
 
       // Format commit body.
@@ -73,8 +79,28 @@ export function getWriterOpts(headerText: string): WriterOptions {
         .split(/\n[\s\n]*/)
         .map(paragraph => capitalize(paragraph.trim()))
         .filter(paragraph => !!paragraph)
-        .map(paragraph => `  * ${addPunctuationMark(paragraph)}`)
+        .map(
+          paragraph =>
+            `  * ${addPunctuationMark(
+              addMarkdownLinks(paragraph, context.repoUrl!),
+            )}`,
+        )
         .join('\n');
+
+      const author = commit.author as unknown as CommitUser | undefined;
+      const commiter = commit.commiter as unknown as
+        | CommitUser
+        | undefined;
+
+      // Add a link to the author of the commit. This is only added in
+      // cases where the commit comes from a merged PR, or if the commit
+      // was made directly from GitHub's UI.
+      if (author?.name && commiter?.name === 'GitHub') {
+        commit.authorLink = addMarkdownLinks(
+          `@${author.name}`,
+          context.repoUrl!,
+        );
+      }
 
       return commit;
     },
@@ -83,7 +109,7 @@ export function getWriterOpts(headerText: string): WriterOptions {
         // TS type from `conventional-changelog-core` doesn't include
         // author field.
         const author = commit.raw.author as unknown as
-          | { name: string }
+          | CommitUser
           | undefined;
 
         return author?.name && !acc.includes(`@${author.name}`)
@@ -127,4 +153,24 @@ function addPunctuationMark(str: string) {
   const lastChar = str[str.length - 1];
   const hasPunctuationMark = lastChar === '.';
   return lastChar && !hasPunctuationMark ? `${str}.` : str;
+}
+
+function addMarkdownLinks(str: string, repoUrl: string) {
+  // Replace referenced issues with a markdown link to the issue.
+  // eg. '#500' -> '[#500](https://github.com/...)'
+  const issueUrl = `${repoUrl}/issues/`;
+  const strWithIssueUrls = str.replace(
+    /\b#([0-9]+)/g,
+    (_, issueNo) => `[#${issueNo}](${issueUrl}${issueNo})`,
+  );
+
+  // Replace referenced usernames with a markdown link to the user.
+  // eg. '@lars-berger' -> '[@lars-berger](https://github.com/...)'
+  return strWithIssueUrls.replace(
+    /\b@([a-z0-9](?:-?[a-z0-9/]){0,38})/g,
+    (_, username) =>
+      username.includes('/')
+        ? `@${username}`
+        : `[@${username}](${repoUrl}/${username})`,
+  );
 }
