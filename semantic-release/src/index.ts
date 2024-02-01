@@ -26,8 +26,6 @@ export async function run(): Promise<void> {
       }
     }
 
-    const isPrelease = core.getBooleanInput('is-prerelease');
-    const prereleaseTag = core.getInput('prerelease-tag');
     const releaseBranch = core.getInput('release-branch');
     const ghPublish = core.getBooleanInput('gh-publish');
     const ghToken = core.getInput('gh-token');
@@ -85,21 +83,16 @@ export async function run(): Promise<void> {
 
     const result = await semanticRelease(
       {
-        branches: [
-          {
-            name: releaseBranch,
-            ...(isPrelease ? { channel: prereleaseTag } : {}),
-            prerelease: isPrelease ? prereleaseTag : false,
-          },
-          // If there is only a prerelease branch, Semantic Release will error
-          // and require a release branch to be added. We can bypass this by
-          // adding a wildcard release branch, but it means the repository has
-          // to have at least one branch other than `main`.
-          { name: '*' },
-        ],
+        branches: [{ name: releaseBranch }],
         plugins,
       },
-      { env: { GITHUB_TOKEN: ghToken, NPM_TOKEN: npmToken, CI: 'true' } },
+      {
+        env: {
+          GITHUB_TOKEN: ghToken,
+          NPM_TOKEN: npmToken,
+          CI: 'true',
+        },
+      },
     );
 
     // Return early when a release isn't created (eg. in case no change types

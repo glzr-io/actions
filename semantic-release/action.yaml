@@ -7,15 +7,6 @@ branding:
   color: gray-dark
 
 inputs:
-  is-prerelease:
-    description: Whether to publish as a prelease.
-    default: false
-
-  prerelease-tag:
-    description: |
-      Suffix to add for preleases in GH releases and NPM dist tags.
-    default: next
-
   release-branch:
     description: Branch on which new releases are created from.
     default: main
