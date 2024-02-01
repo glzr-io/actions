@@ -60,7 +60,10 @@ export async function run(): Promise<void> {
 
     // If enabled, push plugin for publishing to NPM.
     if (npmPublish) {
-      plugins.push(['@semantic-release/npm', { pkgRoot: npmPackageRoot }]);
+      plugins.push([
+        '@semantic-release/npm',
+        { ...(npmPackageRoot ? { pkgRoot: npmPackageRoot } : {}) },
+      ]);
     }
 
     // If enabled, push plugin for publishing as GitHub release.
