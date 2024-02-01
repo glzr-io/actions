@@ -15,7 +15,7 @@ export async function run(): Promise<void> {
       // Semantic Release refuses to work when bundled into a single file, so
       // instead we install it at runtime.
       const { stdout, stderr } = await promisify(exec)(
-        'npm --loglevel error i semantic-release@22.0.12',
+        'npm --loglevel error i semantic-release@22.0.12 @glzr/semantic-release-npm',
         { cwd: path.resolve(__dirname) },
       );
 
@@ -35,6 +35,7 @@ export async function run(): Promise<void> {
     const npmPublish = core.getBooleanInput('npm-publish');
     const npmToken = core.getInput('npm-token');
     const npmPackageRoot = core.getInput('npm-package-root');
+    const npmPackageManager = core.getInput('npm-package-manager');
 
     const plugins: PluginSpec[] = [
       [
@@ -61,8 +62,11 @@ export async function run(): Promise<void> {
     // If enabled, push plugin for publishing to NPM.
     if (npmPublish) {
       plugins.push([
-        '@semantic-release/npm',
-        { ...(npmPackageRoot ? { pkgRoot: npmPackageRoot } : {}) },
+        '@glzr/semantic-release-npm',
+        {
+          packageManager: npmPackageManager,
+          ...(npmPackageRoot ? { pkgRoot: npmPackageRoot } : {}),
+        },
       ]);
     }
 

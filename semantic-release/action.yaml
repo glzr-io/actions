@@ -38,6 +38,11 @@ inputs:
   npm-token:
     description: NPM token for authentication.
 
+  npm-package-manager:
+    description: |
+      Package manager used to publish the package (either 'npm' or 'pnpm').
+    default: npm
+
   npm-package-root:
     description: |
       Path to directory to publish (must contain a `package.json` file).
