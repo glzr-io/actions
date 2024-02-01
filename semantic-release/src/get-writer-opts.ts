@@ -12,7 +12,7 @@ import type { WriterOptions } from 'conventional-changelog-core';
 const commitPartial = `\
 *{{#if scope}} **{{scope}}:**{{/if}} {{subject}}
 {{~#if author}} @{{author.name}}{{/if}}
-{{#if body}}{{body}}{{/if}}
+{{#if body}}{{body}}{{/if}}\
 `;
 
 /**
@@ -34,7 +34,7 @@ const mainTemplate = `\
 {{/each}}
 {{> footer}}
 ---
-{{thankYouMessage}}
+{{thankYouMessage}}\
 `;
 
 export function getWriterOpts(headerText: string): WriterOptions {
@@ -43,6 +43,7 @@ export function getWriterOpts(headerText: string): WriterOptions {
     commitPartial,
     headerPartial: headerText,
     transform: (commit, _context) => {
+      console.log('>>', JSON.stringify(commit));
       // Discard if no commit type or subject is present.
       if (!commit.type || !commit.subject) {
         return false;
