@@ -1,5 +1,5 @@
 {
-  "extends": "@glzr/style-guide/tsconfig/nodejs-lib",
+  "extends": "@glzr/style-guide/tsconfig/vanilla-bundler",
   "compilerOptions": {
     "outDir": "dist",
     "removeComments": true,

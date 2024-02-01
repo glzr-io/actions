@@ -9,8 +9,8 @@ importers:
   .:
     devDependencies:
       '@glzr/style-guide':
-        specifier: 1.0.0
-        version: 1.0.0(prettier@3.1.1)
+        specifier: 1.1.0
+        version: 1.1.0(prettier@3.1.1)
       prettier:
         specifier: 3.1.1
         version: 3.1.1
@@ -326,8 +326,8 @@ packages:
     engines: {node: '>=14'}
     dev: false
 
-  /@glzr/style-guide@1.0.0(prettier@3.1.1):
-    resolution: {integrity: sha512-Uq0SHBiFQWrt7LoQKN7UP6AI4jOOLO4mZ8nnRTXrt57nZBfKg7S2PNQlDuzPWsDLU9Ducj7eGahl3U/D9C5auA==}
+  /@glzr/style-guide@1.1.0(prettier@3.1.1):
+    resolution: {integrity: sha512-/AtA3ZXIbbJGaWjTjxK0BfM3IE92FxysIp3ltCzd9dbMrjRXBvQI6TZ0zUFJorZHV3f0vhyDSqEgjSTbAufv7w==}
     engines: {node: '>=16'}
     peerDependencies:
       prettier: '>=3.0.0 <4'

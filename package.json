@@ -22,7 +22,7 @@
   },
   "prettier": "@glzr/style-guide/prettier",
   "devDependencies": {
-    "@glzr/style-guide": "1.0.0",
+    "@glzr/style-guide": "1.1.0",
     "prettier": "3.1.1"
   },
   "engines": {
