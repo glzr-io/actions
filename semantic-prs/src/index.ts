@@ -3,7 +3,7 @@ import { context, getOctokit } from '@actions/github';
 import { type WebhookPayload } from '@actions/github/lib/interfaces';
 
 const VALID_CHANGE_TYPES = [
-  'build',
+  'chore',
   'ci',
   'docs',
   'feat',
@@ -112,7 +112,7 @@ function getErrorMessage(
 
   message += `
     ### Which change type to choose?
-    * **build**: Changes that affect the build system or external dependencies
+    * **chore**: Changes that affect the build system or external dependencies
     * **ci**: Changes to CI configuration files and scripts
     * **docs**: Documentation only changes
     * **feat**: A new feature

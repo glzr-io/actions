@@ -40,7 +40,9 @@ inputs:
 
   npm-package-manager:
     description: |
-      Package manager used to publish the package (either 'npm' or 'pnpm').
+      Package manager used to publish the package (either 'npm' or
+      'pnpm'). Setting this to 'pnpm' allows workspace:* dependencies to
+      be used.
     default: npm
 
   npm-package-root:
