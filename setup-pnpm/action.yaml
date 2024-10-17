@@ -28,13 +28,11 @@ runs:
         fetch-depth: ${{ inputs.fetch-depth }}
 
     - uses: pnpm/action-setup@v4
-      shell: bash
 
     - uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         cache: pnpm
-      shell: bash
 
     - run: pnpm i
       shell: bash
