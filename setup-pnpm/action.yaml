@@ -1,0 +1,40 @@
+name: Setup PNPM
+description: Perform common setup steps for NodeJS + PNPM projects.
+author: glzr.io
+
+branding:
+  icon: activity
+  color: gray-dark
+
+inputs:
+  checkout:
+    description: Whether to checkout the repository.
+    default: false
+
+  fetch-depth:
+    description: Number of commits to fetch. 0 for all history.
+    default: 1
+
+  node-version:
+    description: Version of NodeJS to use.
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - if: ${{ inputs.checkout }}
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: ${{ inputs.fetch-depth }}
+
+    - uses: pnpm/action-setup@v4
+      shell: bash
+
+    - uses: actions/setup-node@v4
+      with:
+        node-version: ${{ inputs.node-version }}
+        cache: pnpm
+      shell: bash
+
+    - run: pnpm i
+      shell: bash

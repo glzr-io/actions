@@ -1,8 +1,27 @@
 # Actions &middot; [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](https://github.com/glzr-io/actions/pulls) [![License](https://img.shields.io/github/license/glzr-io/actions)](https://github.com/glzr-io/actions/blob/main/LICENSE.md) [![Discord invite](https://img.shields.io/discord/1041662798196908052.svg?logo=discord&colorB=7289DA)](https://discord.gg/ud6z3qjRvM)
 
+## Setup PNPM
+
+Workflow for common setup steps of NodeJS + PNPM projects, with configurable checkout.
+
+### Example usage
+
+```yaml
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: glzr-io/actions/setup-pnpm@main
+        with:
+          checkout: true
+          fetch-depth: 0
+          node-version: 20
+```
+
+
 ## Semantic PRs
 
-GitHub Actions workflow for validating PR titles.
+Workflow for validating PR titles.
 
 ### Example usage
 
@@ -24,9 +43,7 @@ jobs:
 
 ## Semantic Release
 
-GitHub Actions workflow for publishing to GitHub releases and/or NPM via Semantic Release.
-
-**Note that the repository requires at least one branch other than the release branch.**
+Workflow for publishing to GitHub releases and/or NPM via Semantic Release.
 
 ### Example usage
 
