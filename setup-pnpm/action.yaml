@@ -1,5 +1,5 @@
-name: Setup PNPM
-description: Perform common setup steps for NodeJS + PNPM projects.
+name: Setup pnpm
+description: Perform common setup steps for NodeJS + pnpm projects.
 author: glzr.io
 
 branding:
@@ -23,16 +23,20 @@ runs:
   using: composite
   steps:
     - if: ${{ inputs.checkout }}
+      name: Checkout
       uses: actions/checkout@v4
       with:
         fetch-depth: ${{ inputs.fetch-depth }}
 
-    - uses: pnpm/action-setup@v4
+    - name: Setup pnpm
+      uses: pnpm/action-setup@v4
 
-    - uses: actions/setup-node@v4
+    - name: Setup NodeJS
+      uses: actions/setup-node@v4
       with:
         node-version: ${{ inputs.node-version }}
         cache: pnpm
 
-    - run: pnpm i
+    - name: Install dependencies (pnpm)
+      run: pnpm i
       shell: bash

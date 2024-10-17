@@ -2,7 +2,7 @@
 
 ## Setup PNPM
 
-Workflow for common setup steps of NodeJS + PNPM projects, with configurable checkout.
+Workflow for common setup steps of NodeJS + pnpm projects, with configurable checkout.
 
 ### Example usage
 
