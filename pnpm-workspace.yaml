@@ -1,3 +1,2 @@
 packages:
-  - 'semantic-prs'
-  - 'semantic-release'
+  - './*'

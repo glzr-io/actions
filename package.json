@@ -11,10 +11,6 @@
     "url": "git+https://github.com/glzr-io/actions.git"
   },
   "license": "MIT",
-  "workspaces": [
-    "semantic-prs",
-    "semantic-release"
-  ],
   "scripts": {
     "build": "pnpm -r build",
     "dev": "pnpm -r dev",
