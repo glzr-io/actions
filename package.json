@@ -18,7 +18,8 @@
   "scripts": {
     "build": "pnpm -r build",
     "dev": "pnpm -r dev",
-    "format": "prettier --write **/*.ts"
+    "format": "prettier --write .",
+    "lint": "prettier --check ."
   },
   "prettier": "@glzr/style-guide/prettier",
   "devDependencies": {

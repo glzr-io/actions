@@ -18,7 +18,6 @@ jobs:
           node-version: 20
 ```
 
-
 ## Semantic PRs
 
 Workflow for validating PR titles.
