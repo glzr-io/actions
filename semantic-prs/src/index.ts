@@ -27,10 +27,21 @@ export async function run(): Promise<void> {
     }
 
     const title: string = pullRequest.title;
-    const startRegex = new RegExp(`^(${VALID_CHANGE_TYPES.join('|')}): `);
+    const allowedScopes: string[] = JSON.parse(
+      core.getInput('allowed-scopes'),
+    );
+
+    const scopePattern =
+      allowedScopes.length > 0
+        ? `(\\((?:${allowedScopes.join('|')})\\))?`
+        : '(\\([^)]+\\))?';
+
+    const startRegex = new RegExp(
+      `^(${VALID_CHANGE_TYPES.join('|')})${scopePattern}: `,
+    );
 
     if (!startRegex.test(title)) {
-      exitWithPrComment(pullRequest);
+      await exitWithPrComment(pullRequest, allowedScopes);
     }
   } catch (error) {
     // Fail the workflow run if an error occurs.
@@ -42,9 +53,9 @@ export async function run(): Promise<void> {
 
 async function exitWithPrComment(
   pullRequest: WebhookPayload['pull_request'],
+  allowedScopes: string[],
 ): Promise<void> {
   const ghToken = core.getInput('gh-token');
-  const allowedScopes = JSON.parse(core.getInput('allowed-scopes'));
   const exampleTitle = core.getInput('example-title');
   const exampleTitleWithScope = core.getInput('example-title-with-scope');
   const octokit = getOctokit(ghToken);
@@ -55,12 +66,16 @@ async function exitWithPrComment(
     exampleTitleWithScope,
   );
 
-  await octokit.rest.issues.createComment({
-    owner: context.repo.owner,
-    repo: context.repo.repo,
-    issue_number: pullRequest!.number,
-    body: message,
-  });
+  try {
+    await octokit.rest.issues.createComment({
+      owner: context.repo.owner,
+      repo: context.repo.repo,
+      issue_number: pullRequest!.number,
+      body: message,
+    });
+  } catch {
+    core.warning('Failed to create PR comment (possibly a fork PR).');
+  }
 
   throw new Error(message);
 }
@@ -90,9 +105,11 @@ function getErrorMessage(
       `;
   } else {
     message += `
-      <change type>: <short summary>
-        │                   │
-        │                   └─⫸ Summary in present tense. Not capitalized. No period at the end.
+      <change type>(<scope>): <short summary>
+        │             │         │
+        │             │         └─⫸ Summary in present tense. Not capitalized. No period at the end.
+        │             │
+        │             └─⫸ Scope is optional.
         │
         └─⫸ Valid change types: ${VALID_CHANGE_TYPES.join('|')}
       `;
